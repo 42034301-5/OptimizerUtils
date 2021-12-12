@@ -1,0 +1,13 @@
+READ X
+READ Y
+L: L
+R := X % Y
+IF R = 0 GOTO E
+X := Y
+Y := R
+GOTO L
+X := Y + 1
+Y := X + 1
+L: E
+WRITE Y
+HALT
