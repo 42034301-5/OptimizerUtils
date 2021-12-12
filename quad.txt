@@ -11,7 +11,7 @@ MUL T5 T3 T4
 SUB T6 R r 
 MUL B T5 T6 
 SET I 1 -
-LABLE L - -
+LABEL L - -
 JGT I 10 E 
 MUL T1 2 J 
 MUL T2 10 I 
@@ -27,5 +27,5 @@ TAR T4 T3 T9
 ADD I I 1 
 MOD T10 T9 7 
 JMP L - -
-LABLE E - -
+LABEL E - -
 HALT - - -

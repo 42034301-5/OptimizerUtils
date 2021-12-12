@@ -2,29 +2,30 @@
 
 using namespace std;
 
-const regex tri00("^READ:([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri01("^WRITE:([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri02("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)");
-const regex tri03("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)\\+([A-Za-z0-9.]+)");
-const regex tri04("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)-([A-Za-z0-9.]+)");
-const regex tri05("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)\\*([A-Za-z0-9.]+)");
-const regex tri06("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)/([A-Za-z0-9.]+)");
-const regex tri07("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z0-9.]+)%([A-Za-z0-9.]+)");
-const regex tri08("^([A-Za-z]+[A-Za-z0-9]*)\\[([A-Za-z0-9.]+)\\]:=([A-Za-z0-9.]+)");
-const regex tri09("^([A-Za-z]+[A-Za-z0-9]*):=([A-Za-z]+[A-Za-z0-9]*)\\[([A-Za-z0-9.]+)\\]");
-const regex tri10("^([A-Za-z]+[A-Za-z0-9]*):=ADDR\\(([A-Za-z]+[A-Za-z0-9]*)\\)");
-const regex tri11("^:->([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri12("^\\?([A-Za-z0-9.]+)>([A-Za-z0-9.]+):->([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri13("^\\?([A-Za-z0-9.]+)<([A-Za-z0-9.]+):->([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri14("^\\?([A-Za-z0-9.]+)=([A-Za-z0-9.]+):->([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri15("^L:([A-Za-z0-9.]+)");
+const regex tri00("^READ ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri01("^WRITE ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri02("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+)");
+const regex tri03("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+) \\+ ([A-Za-z0-9.]+)");
+const regex tri04("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+) - ([A-Za-z0-9.]+)");
+const regex tri05("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+) \\* ([A-Za-z0-9.]+)");
+const regex tri06("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+) / ([A-Za-z0-9.]+)");
+const regex tri07("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z0-9.]+) % ([A-Za-z0-9.]+)");
+const regex tri08("^([A-Za-z]+[A-Za-z0-9]*)\\[([A-Za-z0-9.]+)\\] := ([A-Za-z0-9.]+)");
+const regex tri09("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z]+[A-Za-z0-9]*)\\[([A-Za-z0-9.]+)\\]");
+const regex tri10("^([A-Za-z]+[A-Za-z0-9]*) := ADDR\\(([A-Za-z]+[A-Za-z0-9]*)\\)");
+const regex tri11("GOTO ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri12("^IF ([A-Za-z0-9.]+) > ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri13("^IF ([A-Za-z0-9.]+) < ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri14("^IF ([A-Za-z0-9.]+) = ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri15("^L: ([A-Za-z0-9.]+)");
 const regex tri16("^HALT");
 
 int main()
 {
     std::string s;
-    while (std::cin >> s)
+    while (std::getline(cin, s))
     {
+        // s.erase(s.end() - 1); // for windows CR LF
         if (regex_match(s, tri00))
         {
             smatch m;
@@ -34,7 +35,7 @@ int main()
             {
                 cout << *pos << " ";
             };
-            cout << "- -\n";
+            cout << "- - \n";
         }
         else if (regex_match(s, tri01))
         {
@@ -45,7 +46,7 @@ int main()
             {
                 cout << *pos << " ";
             };
-            cout << "- -\n";
+            cout << "- - \n";
         }
         else if (regex_match(s, tri02))
         {
@@ -56,7 +57,7 @@ int main()
             {
                 cout << *pos << " ";
             };
-            cout << "-\n";
+            cout << "- \n";
         }
         else if (regex_match(s, tri03))
         {
@@ -144,7 +145,7 @@ int main()
             {
                 cout << *pos << " ";
             };
-            cout << "-\n";
+            cout << "- \n";
         }
         else if (regex_match(s, tri11))
         {
@@ -155,7 +156,7 @@ int main()
             {
                 cout << *pos << " ";
             };
-            cout << "- -\n";
+            cout << "- - \n";
         }
         else if (regex_match(s, tri12))
         {
@@ -194,16 +195,16 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri15);
-            cout << "LABLE ";
+            cout << "LABEL ";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
                 cout << *pos << " ";
             };
-            cout << "- -\n";
+            cout << "- - \n";
         }
         else if (regex_match(s, tri16))
         {
-            cout << "HALT - - -\n";
+            cout << "HALT - - - \n";
         }
         else
         {
