@@ -30,32 +30,32 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri00);
-            cout << "READ ";
+            cout << "READ\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
-            cout << "- - \n";
+            cout << "-\t- \n";
         }
         else if (regex_match(s, tri01))
         {
             smatch m;
             auto ret = regex_match(s, m, tri01);
-            cout << "WRITE ";
+            cout << "WRITE\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
-            cout << "- - \n";
+            cout << "-\t- \n";
         }
         else if (regex_match(s, tri02))
         {
             smatch m;
             auto ret = regex_match(s, m, tri02);
-            cout << "SET ";
+            cout << "SET\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << "- \n";
         }
@@ -63,10 +63,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri03);
-            cout << "ADD ";
+            cout << "ADD\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -74,10 +74,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri04);
-            cout << "SUB ";
+            cout << "SUB\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -85,10 +85,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri05);
-            cout << "MUL ";
+            cout << "MUL\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -96,10 +96,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri06);
-            cout << "DIV ";
+            cout << "DIV\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -107,10 +107,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri07);
-            cout << "MOD ";
+            cout << "MOD\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -118,10 +118,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri08);
-            cout << "TAR ";
+            cout << "TAR\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -129,10 +129,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri09);
-            cout << "FAR ";
+            cout << "FAR\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -140,10 +140,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri10);
-            cout << "ADDR ";
+            cout << "ADDR\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << "- \n";
         }
@@ -151,21 +151,21 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri11);
-            cout << "JMP ";
+            cout << "JMP\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
-            cout << "- - \n";
+            cout << "-\t- \n";
         }
         else if (regex_match(s, tri12))
         {
             smatch m;
             auto ret = regex_match(s, m, tri12);
-            cout << "JGT ";
+            cout << "JGT\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -173,10 +173,10 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri13);
-            cout << "JLT ";
+            cout << "JLT\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
             cout << endl;
         }
@@ -184,27 +184,27 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri14);
-            cout << "JEQ ";
+            cout << "JEQ\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
-            cout << endl;
+            cout << "\n";
         }
         else if (regex_match(s, tri15))
         {
             smatch m;
             auto ret = regex_match(s, m, tri15);
-            cout << "LABEL ";
+            cout << "LABEL\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
-                cout << *pos << " ";
+                cout << *pos << "\t";
             };
-            cout << "- - \n";
+            cout << "-\t- \n";
         }
         else if (regex_match(s, tri16))
         {
-            cout << "HALT - - - \n";
+            cout << "HALT\t-\t-\t- \n";
         }
         else
         {

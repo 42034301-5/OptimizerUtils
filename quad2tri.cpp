@@ -2,23 +2,23 @@
 
 using namespace std;
 
-const regex tri00("^READ ([A-Za-z]+[A-Za-z0-9]*) - -\\s*");
-const regex tri01("^WRITE ([A-Za-z]+[A-Za-z0-9]*) - -\\s*");
-const regex tri02("^SET ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) -");
-const regex tri03("^ADD ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri04("^SUB ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri05("^MUL ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri06("^DIV ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri07("^MOD ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri08("^TAR ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+) ([A-Za-z0-9.]+)\\s*");
-const regex tri09("^FAR ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z0-9.]+)\\s*");
-const regex tri10("^ADDR ([A-Za-z]+[A-Za-z0-9]*) ([A-Za-z]+[A-Za-z0-9]*) -\\s*");
-const regex tri11("^JMP ([A-Za-z]+[A-Za-z0-9]*) - -\\s*");
-const regex tri12("^JGT ([A-Za-z0-9.]+) ([A-Za-z0-9.]+) ([A-Za-z]+[A-Za-z0-9]*)\\s*");
-const regex tri13("^JLT ([A-Za-z0-9.]+) ([A-Za-z0-9.]+) ([A-Za-z]+[A-Za-z0-9]*)\\s*");
-const regex tri14("^JEQ ([A-Za-z0-9.]+) ([A-Za-z0-9.]+) ([A-Za-z]+[A-Za-z0-9]*)\\s*");
-const regex tri15("^LABEL ([A-Za-z0-9.]+) - -\\s*");
-const regex tri16("^HALT - - -\\s*");
+const regex tri00("^READ\t([A-Za-z]+[A-Za-z0-9]*)\t-\t-\\s*");
+const regex tri01("^WRITE\t([A-Za-z]+[A-Za-z0-9]*)\t-\t-\\s*");
+const regex tri02("^SET\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t-\\s*");
+const regex tri03("^ADD\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri04("^SUB\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri05("^MUL\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri06("^DIV\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri07("^MOD\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri08("^TAR\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\\s*");
+const regex tri09("^FAR\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z]+[A-Za\tz0-9]*)\t([A-Za-z0-9.]+)\\s*");
+const regex tri10("^ADDR\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z]+[A-Za-z0-9]*)\t-\\s*");
+const regex tri11("^JMP\t([A-Za-z]+[A-Za-z0-9]*)\t-\t-\\s*");
+const regex tri12("^JGT\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
+const regex tri13("^JLT\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
+const regex tri14("^JEQ\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
+const regex tri15("^LABEL\t([A-Za-z0-9.]+)\t-\t-\\s*");
+const regex tri16("^HALT\t-\t-\t-\\s*");
 
 int main()
 {
