@@ -86,14 +86,19 @@ int main()
         tmp.ext_line = j;
         blocks.push_back(tmp);
     };
+
+    // 后处理基本块
     int cnt = 0;
     for (auto &b : blocks)
     {
+        // 输出基本块内的所有四元式
         cout << "\n\n#BLK " << ++cnt << "\n";
         for (auto &l : b.lines)
         {
             cout << l;
         };
+
+        // 处理跳转目标
         if ((b.lines.end() - 1)->op == "HALT")
         {
             cout << ";END\n";
@@ -128,6 +133,8 @@ int main()
             };
             cout << "\n";
         };
+
+        // 处理基本块中涉及的变量
         set<string> vars;
         for (auto &l : b.lines)
         {
@@ -151,6 +158,88 @@ int main()
         };
         cout << ";VAR";
         for (auto v = vars.begin(); v != vars.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+
+        // 处理基本块中首次出现是定值的变量
+        set<string> defd;
+        for (int i = 0; i < b.lines.size(); i++)
+        {
+            quad_exp l = b.lines[i];
+            string tempop = l.op;
+            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT" && tempop != "LABEL" && tempop != "WRITE")
+            {
+                if (regex_match(l.a1, variable_reg) && l.a1 != l.a2 && l.a1 != l.a3)
+                {
+                    bool flag = true;
+                    for (int j = 0; j < i; j++)
+                        if (b.lines[j].a2 == l.a1 || b.lines[j].a3 == l.a1)
+                            flag = false;
+                    if (flag)
+                        defd.insert(l.a1);
+                };
+            };
+        };
+        cout << ";DEF";
+        for (auto v = defd.begin(); v != defd.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+
+        // 处理基本块中首次出现是引用的变量
+        set<string> used;
+        for (int i = 0; i < b.lines.size(); i++)
+        {
+            quad_exp l = b.lines[i];
+            string tempop = l.op;
+            if (tempop != "JMP" && tempop != "READ" && tempop != "LABEL" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT")
+            {
+                if (regex_match(l.a2, variable_reg) && l.a1 != l.a2)
+                {
+                    bool flag = true;
+                    for (int j = 0; j < i; j++)
+                        if (b.lines[j].a1 == l.a2)
+                            flag = false;
+                    if (flag)
+                        used.insert(l.a2);
+                };
+                if (regex_match(l.a3, variable_reg) && l.a1 != l.a3)
+                {
+                    bool flag = true;
+                    for (int j = 0; j < i; j++)
+                        if (b.lines[j].a1 == l.a3)
+                            flag = false;
+                    if (flag)
+                        used.insert(l.a3);
+                };
+            }
+            else if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            {
+                if (regex_match(l.a1, variable_reg))
+                {
+                    bool flag = true;
+                    for (int j = 0; j < i; j++)
+                        if (b.lines[j].a1 == l.a1)
+                            flag = false;
+                    if (flag)
+                        used.insert(l.a1);
+                };
+                if (regex_match(l.a2, variable_reg))
+                {
+                    bool flag = true;
+                    for (int j = 0; j < i; j++)
+                        if (b.lines[j].a1 == l.a2)
+                            flag = false;
+                    if (flag)
+                        used.insert(l.a2);
+                };
+            };
+        };
+        cout << ";USE";
+        for (auto v = used.begin(); v != used.end(); v++)
         {
             cout << " " << *v;
         };
