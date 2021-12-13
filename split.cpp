@@ -25,7 +25,7 @@ map<string, int> labels;
 struct quad_block
 {
     int in_line, ext_line;
-    // vector<quad_exp> lines;
+    vector<quad_exp> lines;
     int next_blk, jop_blk;
 };
 
@@ -47,20 +47,13 @@ int main()
         if (code[i].op == "JMP")
         {
             intro.push(labels[code[i].a1]);
-            // cout << "=========\n";
-            // cout << i;
-            // cout << labels[i.a1] << ":" << code[labels[i.a1]];
         }
         else if (code[i].op == "JGT" || code[i].op == "JEQ" || code[i].op == "JLT")
         {
             intro.push(labels[code[i].a3]);
             intro.push(i + 1);
-            // cout << "=========\n";
-            // cout << i;
-            // cout << labels[i.a3] << ":" << code[labels[i.a3]];
         };
     };
-    cout << "=========\n";
     while (!intro.empty())
     {
         int i = intro.top();
@@ -74,18 +67,66 @@ int main()
         {
             t = code.size();
         };
-        for (int j = i; j < t; j++)
+        quad_block tmp;
+        tmp.in_line = i;
+        int j = i;
+        for (; j < t; j++)
         {
             if (code[j].op == "JGT" || code[j].op == "JEQ" || code[j].op == "JLT" || code[j].op == "JMP" || code[j].op == "HALT")
             {
-                cout << code[j];
-
+                // cout << code[j];
+                tmp.lines.push_back(code[j]);
                 break;
             };
-            cout << code[j];
+            // cout << code[j];
+            tmp.lines.push_back(code[j]);
         };
-        cout << "=========\n";
-    }
+        tmp.ext_line = j;
+        blocks.push_back(tmp);
+    };
+    int cnt = 0;
+    for (auto &b : blocks)
+    {
+        cout << "\n\n#BLK " << ++cnt << "\n";
+        for (auto &l : b.lines)
+        {
+            cout << l;
+        };
+        if ((b.lines.end() - 1)->op == "HALT")
+        {
+            cout << ";END\n";
+        }
+        else
+        {
+            cout << ";NXT ";
+            string tempop = (b.lines.end() - 1)->op;
+            if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            {
+                int j = 0;
+                for (; j < blocks.size(); j++)
+                {
+                    if (blocks[j].lines.begin()->a1 == (b.lines.end() - 1)->a3)
+                        break;
+                };
+                cout << cnt + 1 << " " << j + 1;
+            }
+            else if (tempop == "JMP")
+            {
+                int j = 0;
+                for (; j < blocks.size(); j++)
+                {
+                    if (blocks[j].lines.begin()->a1 == (b.lines.end() - 1)->a1)
+                        break;
+                };
+                cout << " " << j + 1;
+            }
+            else
+            {
+                cout << cnt + 1;
+            };
+            cout << "\n";
+        };
+    };
 
     return 0;
 }
