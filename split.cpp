@@ -2,6 +2,8 @@
 
 using namespace std;
 
+const regex variable_reg("[A-Za-z]+[A-Za-z0-9]*");
+
 struct quad_exp
 {
     std::string op, a1, a2, a3;
@@ -126,6 +128,33 @@ int main()
             };
             cout << "\n";
         };
+        set<string> vars;
+        for (auto &l : b.lines)
+        {
+            string tempop = l.op;
+            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT" && tempop != "LABEL")
+            {
+                if (regex_match(l.a1, variable_reg))
+                    vars.insert(l.a1);
+                if (regex_match(l.a2, variable_reg))
+                    vars.insert(l.a2);
+                if (regex_match(l.a3, variable_reg))
+                    vars.insert(l.a3);
+            }
+            else if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            {
+                if (regex_match(l.a1, variable_reg))
+                    vars.insert(l.a1);
+                if (regex_match(l.a2, variable_reg))
+                    vars.insert(l.a2);
+            };
+        };
+        cout << ";VAR";
+        for (auto v = vars.begin(); v != vars.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
     };
 
     return 0;
