@@ -1,0 +1,39 @@
+
+
+#BLK 1
+READ	X	-	- 
+READ	Y	-	- 
+;NXT 2
+;VAR X Y
+;DEF X Y
+;USE
+
+
+#BLK 2
+LABEL	L	-	- 
+MOD	R	X	Y 
+JEQ	R	0	E 
+;NXT 3 4
+;VAR R X Y
+;DEF R
+;USE X Y
+
+
+#BLK 3
+SET	X	Y	- 
+SET	Y	R	- 
+JMP	L	-	- 
+;NXT  2
+;VAR R X Y
+;DEF X
+;USE R Y
+
+
+#BLK 4
+LABEL	E	-	- 
+WRITE	Y	-	- 
+HALT	-	-	- 
+;END
+;VAR Y
+;DEF
+;USE
