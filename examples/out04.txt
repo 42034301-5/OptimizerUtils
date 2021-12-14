@@ -21,7 +21,7 @@ LABEL	B2	-	-
 ADD	I	I	1 
 MUL	T2	4	I 
 FAR	T3	A	T2 
-JLT	T3	V	B2 
+JGT	V	T3	B2 
 ; NXT 3 2
 ; VAR A I T2 T3 V
 ; DEF T2 T3
@@ -47,8 +47,8 @@ JGT	T5	V	B3
 
 
 ; #BLK 4
-JGT	I	J	B6 
-; NXT 5 7
+JNG	J	I	B6 
+; NXT 5 6
 ; VAR I J
 ; DEF
 ; USE I J
@@ -58,17 +58,6 @@ JGT	I	J	B6
 
 
 ; #BLK 5
-JEQ	I	J	B6 
-; NXT 6 7
-; VAR I J
-; DEF
-; USE I J
-; OUT A I J N V
-; IN A I J N V
-
-
-
-; #BLK 6
 MUL	T6	4	I 
 FAR	X	A	T6 
 MUL	T7	4	I 
@@ -87,7 +76,7 @@ JMP	B2	-	-
 
 
 
-; #BLK 7
+; #BLK 6
 LABEL	B6	-	- 
 MUL	T11	4	I 
 FAR	X	A	T11 

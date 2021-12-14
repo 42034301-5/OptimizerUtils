@@ -15,7 +15,7 @@ const regex tri09("^([A-Za-z]+[A-Za-z0-9]*) := ([A-Za-z]+[A-Za-z0-9]*)\\[([A-Za-
 const regex tri10("^([A-Za-z]+[A-Za-z0-9]*) := ADDR\\(([A-Za-z]+[A-Za-z0-9]*)\\)");
 const regex tri11("GOTO ([A-Za-z]+[A-Za-z0-9]*)");
 const regex tri12("^IF ([A-Za-z0-9.]+) > ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
-const regex tri13("^IF ([A-Za-z0-9.]+) < ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
+const regex tri13("^IF ([A-Za-z0-9.]+) <= ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
 const regex tri14("^IF ([A-Za-z0-9.]+) = ([A-Za-z0-9.]+) GOTO ([A-Za-z]+[A-Za-z0-9]*)");
 const regex tri15("^L: ([A-Za-z0-9.]+)");
 const regex tri16("^HALT");
@@ -173,7 +173,7 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri13);
-            cout << "JLT\t";
+            cout << "JNG\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
                 cout << *pos << "\t";

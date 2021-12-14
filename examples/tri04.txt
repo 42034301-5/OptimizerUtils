@@ -6,14 +6,13 @@ L: B2
 I := I + 1
 T2 := 4 * I
 T3 := A[T2]
-IF T3 < V GOTO B2
+IF V > T3 GOTO B2
 L: B3
 J := J - 1
 T4 := 4 * J
 T5 := A[T4]
 IF T5 > V GOTO B3
-IF I > J GOTO B6
-IF I = J GOTO B6
+IF J <= I GOTO B6
 T6 := 4 * I
 X := A[T6]
 T7 := 4 * I

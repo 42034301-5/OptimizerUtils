@@ -72,7 +72,7 @@ int main()
         {
             intro.push(labels[code[i].a1]);
         }
-        else if (code[i].op == "JGT" || code[i].op == "JEQ" || code[i].op == "JLT")
+        else if (code[i].op == "JGT" || code[i].op == "JEQ" || code[i].op == "JNG")
         {
             intro.push(labels[code[i].a3]);
             intro.push(i + 1);
@@ -96,7 +96,7 @@ int main()
         int j = i;
         for (; j < t; j++)
         {
-            if (code[j].op == "JGT" || code[j].op == "JEQ" || code[j].op == "JLT" || code[j].op == "JMP" || code[j].op == "HALT")
+            if (code[j].op == "JGT" || code[j].op == "JEQ" || code[j].op == "JNG" || code[j].op == "JMP" || code[j].op == "HALT")
             {
                 // cout << code[j];
                 tmp.lines.push_back(code[j]);
@@ -126,7 +126,7 @@ int main()
         {
             // cout << "; NXT ";
             string tempop = (b.lines.end() - 1)->op;
-            if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            if (tempop == "JGT" || tempop == "JNG" || tempop == "JEQ")
             {
                 int j = 0;
                 for (; j < blocks.size(); j++)
@@ -164,7 +164,7 @@ int main()
         for (auto &l : b.lines)
         {
             string tempop = l.op;
-            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT" && tempop != "LABEL")
+            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JNG" && tempop != "LABEL")
             {
                 if (regex_match(l.a1, variable_reg))
                     vars.insert(l.a1);
@@ -173,7 +173,7 @@ int main()
                 if (regex_match(l.a3, variable_reg))
                     vars.insert(l.a3);
             }
-            else if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            else if (tempop == "JGT" || tempop == "JNG" || tempop == "JEQ")
             {
                 if (regex_match(l.a1, variable_reg))
                     vars.insert(l.a1);
@@ -195,7 +195,7 @@ int main()
         {
             quad_exp l = b.lines[i];
             string tempop = l.op;
-            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT" && tempop != "LABEL" && tempop != "WRITE")
+            if (tempop != "JMP" && tempop != "JEQ" && tempop != "JGT" && tempop != "JNG" && tempop != "LABEL" && tempop != "WRITE")
             {
                 if (regex_match(l.a1, variable_reg) && l.a1 != l.a2 && l.a1 != l.a3)
                 {
@@ -222,7 +222,7 @@ int main()
         {
             quad_exp l = b.lines[i];
             string tempop = l.op;
-            if (tempop != "JMP" && tempop != "READ" && tempop != "LABEL" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT")
+            if (tempop != "JMP" && tempop != "READ" && tempop != "LABEL" && tempop != "JEQ" && tempop != "JGT" && tempop != "JNG")
             {
                 if (regex_match(l.a2, variable_reg))
                 {
@@ -243,7 +243,7 @@ int main()
                         used.insert(l.a3);
                 };
             }
-            else if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
+            else if (tempop == "JGT" || tempop == "JNG" || tempop == "JEQ")
             {
                 if (regex_match(l.a1, variable_reg))
                 {
