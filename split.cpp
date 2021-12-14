@@ -115,22 +115,22 @@ int main()
     {
         // cnt++;
         // 输出基本块内的所有四元式
-        cout << "\n\n; #BLK " << ++cnt << "\n";
-        for (auto &l : b.lines)
-        {
-            cout << l;
-        };
+        // cout << "\n\n; #BLK " << ++cnt << "\n";
+        // for (auto &l : b.lines)
+        // {
+        //     cout << l;
+        // };
 
         // 处理跳转目标
         if ((b.lines.end() - 1)->op == "HALT")
         {
             b.next_blk = 0;
             b.jop_blk = 0;
-            cout << "; NXT 0 0\n";
+            // cout << "; NXT 0 0\n";
         }
         else
         {
-            cout << "; NXT ";
+            // cout << "; NXT ";
             string tempop = (b.lines.end() - 1)->op;
             if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
             {
@@ -162,7 +162,7 @@ int main()
                 b.next_blk = cnt + 1;
                 b.jop_blk = 0;
             };
-            cout << b.next_blk << " " << b.jop_blk << "\n";
+            // cout << b.next_blk << " " << b.jop_blk << "\n";
         };
 
         // 处理基本块中涉及的变量
@@ -188,12 +188,12 @@ int main()
             };
         };
         b.inblkv = vars;
-        cout << "; VAR";
-        for (auto v = b.inblkv.begin(); v != b.inblkv.end(); v++)
-        {
-            cout << " " << *v;
-        };
-        cout << "\n";
+        // cout << "; VAR";
+        // for (auto v = b.inblkv.begin(); v != b.inblkv.end(); v++)
+        // {
+        //     cout << " " << *v;
+        // };
+        // cout << "\n";
 
         // 处理基本块中首次出现是定值的变量
         set<string> defd;
@@ -215,12 +215,12 @@ int main()
             };
         };
         b.defdv = defd;
-        cout << "; DEF";
-        for (auto v = b.defdv.begin(); v != b.defdv.end(); v++)
-        {
-            cout << " " << *v;
-        };
-        cout << "\n";
+        // cout << "; DEF";
+        // for (auto v = b.defdv.begin(); v != b.defdv.end(); v++)
+        // {
+        //     cout << " " << *v;
+        // };
+        // cout << "\n";
 
         // 处理基本块中首次出现是引用的变量
         set<string> used;
@@ -272,40 +272,18 @@ int main()
             };
         };
         b.usedv = used;
-        cout << "; USE";
-        for (auto v = b.usedv.begin(); v != b.usedv.end(); v++)
-        {
-            cout << " " << *v;
-        };
-        cout << "\n";
+        // cout << "; USE";
+        // for (auto v = b.usedv.begin(); v != b.usedv.end(); v++)
+        // {
+        //     cout << " " << *v;
+        // };
+        // cout << "\n";
     };
 
     // 生成各基本块的活跃变量
-    // quad_block exit_blk;
-    // blocks.push_back(exit_blk);
     bool in_changed;
     do
     {
-        cout << "\n======\n";
-        for (int i = 0; i < blocks.size(); i++)
-        {
-            cout << "\n; #BLK " << i + 1 << "\n";
-            quad_block b = blocks[i];
-            cout << "; OUT";
-            for (auto v = b.out_v.begin(); v != b.out_v.end(); v++)
-            {
-                cout << " " << *v;
-            };
-            cout << "\n";
-            cout << "; IN";
-
-            for (auto v = b.in_v.begin(); v != b.in_v.end(); v++)
-            {
-                cout << " " << *v;
-            };
-            cout << "\n";
-        };
-
         in_changed = false;
         for (auto &b : blocks)
         {
@@ -329,19 +307,51 @@ int main()
         };
     } while (in_changed);
 
-    cout << "\n======\n";
+    // 大功告成，开始输出
+    cout << "; SPLITTED RESULTS\n";
     for (int i = 0; i < blocks.size(); i++)
     {
         cout << "\n; #BLK " << i + 1 << "\n";
         quad_block b = blocks[i];
+        // 输出各行
+        for (auto &l : b.lines)
+        {
+            cout << l;
+        };
+        // 输出下个基本块的标号
+        cout << "; NXT";
+        cout << b.next_blk << " " << b.jop_blk;
+        cout << "\n";
+        // 输出基本块内的变量
+        cout << "; VAR";
+        for (auto v = b.inblkv.begin(); v != b.inblkv.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+        // 输出基本块内首次使用为定值的变量
+        cout << "; DEF";
+        for (auto v = b.defdv.begin(); v != b.defdv.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+        // 输出基本块内首次使用为引用的变量
+        cout << "; USE";
+        for (auto v = b.usedv.begin(); v != b.usedv.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+        // 输出出基本块活跃的变量
         cout << "; OUT";
         for (auto v = b.out_v.begin(); v != b.out_v.end(); v++)
         {
             cout << " " << *v;
         };
         cout << "\n";
+        // 输出入口处活跃的变量
         cout << "; IN";
-
         for (auto v = b.in_v.begin(); v != b.in_v.end(); v++)
         {
             cout << " " << *v;
