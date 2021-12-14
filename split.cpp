@@ -29,10 +29,32 @@ struct quad_block
     int in_line, ext_line;
     vector<quad_exp> lines;
     int next_blk, jop_blk;
+    set<string> inblkv;
+    set<string> defdv;
+    set<string> usedv;
+    set<string> in_v;
+    set<string> out_v;
 };
 
 vector<quad_block> blocks;
 
+bool set_changed(const set<string> &s1, const set<string> &s2)
+{
+    if (s1.size() != s2.size())
+    {
+        return true;
+    }
+    set<string>::iterator it;
+    set<string>::iterator it1;
+    for (it = s1.begin(), it1 = s2.begin(); it != s1.end(); it++, it1++)
+    {
+        if (*it1 != *it)
+        {
+            return true;
+        }
+    };
+    return false;
+};
 int main()
 {
     std::string op, a1, a2, a3;
@@ -91,8 +113,9 @@ int main()
     int cnt = 0;
     for (auto &b : blocks)
     {
+        // cnt++;
         // 输出基本块内的所有四元式
-        cout << "\n\n#BLK " << ++cnt << "\n";
+        cout << "\n\n; #BLK " << ++cnt << "\n";
         for (auto &l : b.lines)
         {
             cout << l;
@@ -101,11 +124,13 @@ int main()
         // 处理跳转目标
         if ((b.lines.end() - 1)->op == "HALT")
         {
-            cout << ";END\n";
+            b.next_blk = 0;
+            b.jop_blk = 0;
+            cout << "; NXT 0 0\n";
         }
         else
         {
-            cout << ";NXT ";
+            cout << "; NXT ";
             string tempop = (b.lines.end() - 1)->op;
             if (tempop == "JGT" || tempop == "JLT" || tempop == "JEQ")
             {
@@ -115,7 +140,9 @@ int main()
                     if (blocks[j].lines.begin()->a1 == (b.lines.end() - 1)->a3)
                         break;
                 };
-                cout << cnt + 1 << " " << j + 1;
+                // cout << cnt + 1 << " " << j + 1;
+                b.next_blk = cnt + 1;
+                b.jop_blk = j + 1;
             }
             else if (tempop == "JMP")
             {
@@ -125,13 +152,17 @@ int main()
                     if (blocks[j].lines.begin()->a1 == (b.lines.end() - 1)->a1)
                         break;
                 };
-                cout << " " << j + 1;
+                // cout << " " << j + 1;
+                b.next_blk = j + 1;
+                b.jop_blk = 0;
             }
             else
             {
-                cout << cnt + 1;
+                // cout << cnt + 1;
+                b.next_blk = cnt + 1;
+                b.jop_blk = 0;
             };
-            cout << "\n";
+            cout << b.next_blk << " " << b.jop_blk << "\n";
         };
 
         // 处理基本块中涉及的变量
@@ -156,8 +187,9 @@ int main()
                     vars.insert(l.a2);
             };
         };
-        cout << ";VAR";
-        for (auto v = vars.begin(); v != vars.end(); v++)
+        b.inblkv = vars;
+        cout << "; VAR";
+        for (auto v = b.inblkv.begin(); v != b.inblkv.end(); v++)
         {
             cout << " " << *v;
         };
@@ -182,8 +214,9 @@ int main()
                 };
             };
         };
-        cout << ";DEF";
-        for (auto v = defd.begin(); v != defd.end(); v++)
+        b.defdv = defd;
+        cout << "; DEF";
+        for (auto v = b.defdv.begin(); v != b.defdv.end(); v++)
         {
             cout << " " << *v;
         };
@@ -197,7 +230,7 @@ int main()
             string tempop = l.op;
             if (tempop != "JMP" && tempop != "READ" && tempop != "LABEL" && tempop != "JEQ" && tempop != "JGT" && tempop != "JLT")
             {
-                if (regex_match(l.a2, variable_reg) && l.a1 != l.a2)
+                if (regex_match(l.a2, variable_reg))
                 {
                     bool flag = true;
                     for (int j = 0; j < i; j++)
@@ -206,7 +239,7 @@ int main()
                     if (flag)
                         used.insert(l.a2);
                 };
-                if (regex_match(l.a3, variable_reg) && l.a1 != l.a3)
+                if (regex_match(l.a3, variable_reg))
                 {
                     bool flag = true;
                     for (int j = 0; j < i; j++)
@@ -238,8 +271,78 @@ int main()
                 };
             };
         };
-        cout << ";USE";
-        for (auto v = used.begin(); v != used.end(); v++)
+        b.usedv = used;
+        cout << "; USE";
+        for (auto v = b.usedv.begin(); v != b.usedv.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+    };
+
+    // 生成各基本块的活跃变量
+    // quad_block exit_blk;
+    // blocks.push_back(exit_blk);
+    bool in_changed;
+    do
+    {
+        cout << "\n======\n";
+        for (int i = 0; i < blocks.size(); i++)
+        {
+            cout << "\n; #BLK " << i + 1 << "\n";
+            quad_block b = blocks[i];
+            cout << "; OUT";
+            for (auto v = b.out_v.begin(); v != b.out_v.end(); v++)
+            {
+                cout << " " << *v;
+            };
+            cout << "\n";
+            cout << "; IN";
+
+            for (auto v = b.in_v.begin(); v != b.in_v.end(); v++)
+            {
+                cout << " " << *v;
+            };
+            cout << "\n";
+        };
+
+        in_changed = false;
+        for (auto &b : blocks)
+        {
+            if (b.next_blk != 0)
+            {
+                set<string> tmp;
+                set_union(b.out_v.begin(), b.out_v.end(), blocks[b.next_blk - 1].in_v.begin(), blocks[b.next_blk - 1].in_v.end(), inserter(tmp, tmp.begin()));
+                b.out_v = tmp;
+            };
+            if (b.jop_blk != 0)
+            {
+                set<string> tmp;
+                set_union(b.out_v.begin(), b.out_v.end(), blocks[b.jop_blk - 1].in_v.begin(), blocks[b.jop_blk - 1].in_v.end(), inserter(tmp, tmp.begin()));
+                b.out_v = tmp;
+            };
+            set<string> tmp, dif;
+            set_difference(b.out_v.begin(), b.out_v.end(), b.defdv.begin(), b.defdv.end(), inserter(dif, dif.begin()));
+            set_union(dif.begin(), dif.end(), b.usedv.begin(), b.usedv.end(), inserter(tmp, tmp.begin()));
+            in_changed = in_changed || set_changed(tmp, b.in_v);
+            b.in_v = tmp;
+        };
+    } while (in_changed);
+
+    cout << "\n======\n";
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        cout << "\n; #BLK " << i + 1 << "\n";
+        quad_block b = blocks[i];
+        cout << "; OUT";
+        for (auto v = b.out_v.begin(); v != b.out_v.end(); v++)
+        {
+            cout << " " << *v;
+        };
+        cout << "\n";
+        cout << "; IN";
+
+        for (auto v = b.in_v.begin(); v != b.in_v.end(); v++)
         {
             cout << " " << *v;
         };

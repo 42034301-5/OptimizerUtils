@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/msys64/usr/**"
+                "C:/msys64/**"
             ],
             "defines": [
                 "_DEBUG",
