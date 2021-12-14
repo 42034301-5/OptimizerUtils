@@ -14,22 +14,22 @@ MUL	T5	T3	T4
 SUB	T6	R	r 
 MUL	B	T5	T6 
 SET	I	1	- 
-; NXT1 0
+; NXT 2 0
 ; VAR A B I R T0 T1 T2 T3 T4 T5 T6 r
 ; DEF A B I R T0 T1 T2 T3 T4 T5 T6 r
 ; USE
-; OUT
-; IN
+; OUT A I J
+; IN J
 
 ; #BLK 2
 LABEL	L	-	- 
 JGT	I	10	E 
-; NXT1 4
+; NXT 3 4
 ; VAR I
 ; DEF
 ; USE I
-; OUT
-; IN I
+; OUT A I J
+; IN A I J
 
 ; #BLK 3
 MUL	T1	2	J 
@@ -46,17 +46,17 @@ TAR	T4	T3	T9
 ADD	I	I	1 
 MOD	T10	T9	7 
 JMP	L	-	- 
-; NXT2 0
+; NXT 2 0
 ; VAR A I J T1 T10 T2 T3 T4 T5 T6 T7 T8 T9
 ; DEF T1 T10 T2 T3 T4 T5 T6 T7 T8 T9
 ; USE A I J
-; OUT I
+; OUT A I J
 ; IN A I J
 
 ; #BLK 4
 LABEL	E	-	- 
 HALT	-	-	- 
-; NXT0 0
+; NXT 0 0
 ; VAR
 ; DEF
 ; USE

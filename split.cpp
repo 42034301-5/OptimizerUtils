@@ -113,7 +113,7 @@ int main()
     int cnt = 0;
     for (auto &b : blocks)
     {
-        // cnt++;
+        cnt++;
         // 输出基本块内的所有四元式
         // cout << "\n\n; #BLK " << ++cnt << "\n";
         // for (auto &l : b.lines)
@@ -319,7 +319,7 @@ int main()
             cout << l;
         };
         // 输出下个基本块的标号
-        cout << "; NXT";
+        cout << "; NXT ";
         cout << b.next_blk << " " << b.jop_blk;
         cout << "\n";
         // 输出基本块内的变量

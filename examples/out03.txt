@@ -4,48 +4,48 @@
 SUB	I	M	1 
 SET	J	N	- 
 SET	A	U1	- 
-; NXT1 0
+; NXT 2 0
 ; VAR A I J M N U1
 ; DEF A I J
 ; USE M N U1
-; OUT M N U1
-; IN M N U1
+; OUT I J U2 U3
+; IN M N U1 U2 U3
 
 ; #BLK 2
 LABEL	L1	-	- 
 ADD	I	I	1 
 SUB	J	J	1 
 JGT	I	J	L2 
-; NXT1 4
+; NXT 3 4
 ; VAR I J
 ; DEF
 ; USE I J
-; OUT J M N U1 U3
-; IN I J M N U1 U3
+; OUT J U2 U3
+; IN I J U2 U3
 
 ; #BLK 3
 SET	A	U2	- 
-; NXT1 0
+; NXT 4 0
 ; VAR A U2
 ; DEF A
 ; USE U2
-; OUT M N U1
-; IN M N U1 U2
+; OUT J U2 U3
+; IN J U2 U3
 
 ; #BLK 4
 LABEL	L2	-	- 
 SET	I	U3	- 
 JGT	I	0	L1 
-; NXT1 2
+; NXT 5 2
 ; VAR I U3
 ; DEF I
 ; USE U3
-; OUT I J M N U1 U3
-; IN J M N U1 U3
+; OUT I J U2 U3
+; IN J U2 U3
 
 ; #BLK 5
 HALT	-	-	- 
-; NXT0 0
+; NXT 0 0
 ; VAR
 ; DEF
 ; USE

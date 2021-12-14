@@ -3,29 +3,29 @@
 ; #BLK 1
 READ	X	-	- 
 READ	Y	-	- 
-; NXT1 0
+; NXT 2 0
 ; VAR X Y
 ; DEF X Y
 ; USE
-; OUT
+; OUT X Y
 ; IN
 
 ; #BLK 2
 LABEL	L	-	- 
 MOD	R	X	Y 
 JEQ	R	0	E 
-; NXT1 4
+; NXT 3 4
 ; VAR R X Y
 ; DEF R
 ; USE X Y
-; OUT
+; OUT R Y
 ; IN X Y
 
 ; #BLK 3
 SET	X	Y	- 
 SET	Y	R	- 
 JMP	L	-	- 
-; NXT2 0
+; NXT 2 0
 ; VAR R X Y
 ; DEF X
 ; USE R Y
@@ -36,7 +36,7 @@ JMP	L	-	-
 LABEL	E	-	- 
 WRITE	Y	-	- 
 HALT	-	-	- 
-; NXT0 0
+; NXT 0 0
 ; VAR Y
 ; DEF
 ; USE
