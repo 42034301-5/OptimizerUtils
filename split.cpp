@@ -106,7 +106,8 @@ int main()
             tmp.lines.push_back(code[j]);
         };
         tmp.ext_line = j;
-        blocks.push_back(tmp);
+        if (tmp.lines.size() > 0)
+            blocks.push_back(tmp);
     };
 
     // 后处理基本块
@@ -114,13 +115,6 @@ int main()
     for (auto &b : blocks)
     {
         cnt++;
-        // 输出基本块内的所有四元式
-        // cout << "\n\n; #BLK " << ++cnt << "\n";
-        // for (auto &l : b.lines)
-        // {
-        //     cout << l;
-        // };
-
         // 处理跳转目标
         if ((b.lines.end() - 1)->op == "HALT")
         {
