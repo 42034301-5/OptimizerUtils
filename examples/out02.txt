@@ -1,5 +1,7 @@
 ; SPLITTED RESULTS
 
+
+
 ; #BLK 1
 READ	X	-	- 
 READ	Y	-	- 
@@ -9,6 +11,8 @@ READ	Y	-	-
 ; USE
 ; OUT X Y
 ; IN
+
+
 
 ; #BLK 2
 LABEL	L	-	- 
@@ -21,6 +25,8 @@ JEQ	R	0	E
 ; OUT R Y
 ; IN X Y
 
+
+
 ; #BLK 3
 SET	X	Y	- 
 SET	Y	R	- 
@@ -31,6 +37,8 @@ JMP	L	-	-
 ; USE R Y
 ; OUT X Y
 ; IN R Y
+
+
 
 ; #BLK 4
 LABEL	E	-	- 

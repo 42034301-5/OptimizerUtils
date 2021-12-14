@@ -1,5 +1,7 @@
 ; SPLITTED RESULTS
 
+
+
 ; #BLK 1
 SUB	I	M	1 
 SET	J	N	- 
@@ -11,6 +13,8 @@ FAR	V	A	T1
 ; USE A M N
 ; OUT A I J N V
 ; IN A M N
+
+
 
 ; #BLK 2
 LABEL	B2	-	- 
@@ -25,6 +29,8 @@ JLT	T3	V	B2
 ; OUT A I J N V
 ; IN A I J N V
 
+
+
 ; #BLK 3
 LABEL	B3	-	- 
 SUB	J	J	1 
@@ -38,6 +44,8 @@ JGT	T5	V	B3
 ; OUT A I J N V
 ; IN A I J N V
 
+
+
 ; #BLK 4
 JGT	I	J	B6 
 ; NXT 5 7
@@ -47,6 +55,8 @@ JGT	I	J	B6
 ; OUT A I J N V
 ; IN A I J N V
 
+
+
 ; #BLK 5
 JEQ	I	J	B6 
 ; NXT 6 7
@@ -55,6 +65,8 @@ JEQ	I	J	B6
 ; USE I J
 ; OUT A I J N V
 ; IN A I J N V
+
+
 
 ; #BLK 6
 MUL	T6	4	I 
@@ -72,6 +84,8 @@ JMP	B2	-	-
 ; USE A I J
 ; OUT A I J N V
 ; IN A I J N V
+
+
 
 ; #BLK 7
 LABEL	B6	-	- 

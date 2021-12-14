@@ -1,5 +1,7 @@
 ; SPLITTED RESULTS
 
+
+
 ; #BLK 1
 READ	R	-	- 
 READ	r	-	- 
@@ -21,6 +23,8 @@ SET	I	1	-
 ; OUT A I J
 ; IN J
 
+
+
 ; #BLK 2
 LABEL	L	-	- 
 JGT	I	10	E 
@@ -30,6 +34,8 @@ JGT	I	10	E
 ; USE I
 ; OUT A I J
 ; IN A I J
+
+
 
 ; #BLK 3
 MUL	T1	2	J 
@@ -52,6 +58,8 @@ JMP	L	-	-
 ; USE A I J
 ; OUT A I J
 ; IN A I J
+
+
 
 ; #BLK 4
 LABEL	E	-	- 

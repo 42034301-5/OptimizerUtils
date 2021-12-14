@@ -305,7 +305,7 @@ int main()
     cout << "; SPLITTED RESULTS\n";
     for (int i = 0; i < blocks.size(); i++)
     {
-        cout << "\n; #BLK " << i + 1 << "\n";
+        cout << "\n\n\n; #BLK " << i + 1 << "\n";
         quad_block b = blocks[i];
         // 输出各行
         for (auto &l : b.lines)

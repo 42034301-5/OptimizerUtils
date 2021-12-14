@@ -1,5 +1,7 @@
 ; SPLITTED RESULTS
 
+
+
 ; #BLK 1
 SUB	I	M	1 
 SET	J	N	- 
@@ -10,6 +12,8 @@ SET	A	U1	-
 ; USE M N U1
 ; OUT I J U2 U3
 ; IN M N U1 U2 U3
+
+
 
 ; #BLK 2
 LABEL	L1	-	- 
@@ -23,6 +27,8 @@ JGT	I	J	L2
 ; OUT J U2 U3
 ; IN I J U2 U3
 
+
+
 ; #BLK 3
 SET	A	U2	- 
 ; NXT 4 0
@@ -31,6 +37,8 @@ SET	A	U2	-
 ; USE U2
 ; OUT J U2 U3
 ; IN J U2 U3
+
+
 
 ; #BLK 4
 LABEL	L2	-	- 
@@ -42,6 +50,8 @@ JGT	I	0	L1
 ; USE U3
 ; OUT I J U2 U3
 ; IN J U2 U3
+
+
 
 ; #BLK 5
 HALT	-	-	- 
