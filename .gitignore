@@ -30,5 +30,4 @@
 *.exe
 *.out
 *.app
-a.exe.stackdump
-split.exe.stackdump
+*.stackdump
