@@ -15,7 +15,7 @@ const regex tri09("^FAR\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z]+[A-Za\tz0-9]*)\t([A-
 const regex tri10("^ADDR\t([A-Za-z]+[A-Za-z0-9]*)\t([A-Za-z]+[A-Za-z0-9]*)\t-\\s*");
 const regex tri11("^JMP\t([A-Za-z]+[A-Za-z0-9]*)\t-\t-\\s*");
 const regex tri12("^JGT\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
-const regex tri13("^JNG\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
+const regex tri13("^JLE\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
 const regex tri14("^JEQ\t([A-Za-z0-9.]+)\t([A-Za-z0-9.]+)\t([A-Za-z]+[A-Za-z0-9]*)\\s*");
 const regex tri15("^LABEL\t([A-Za-z0-9.]+)\t-\t-\\s*");
 const regex tri16("^HALT\t-\t-\t-\\s*");

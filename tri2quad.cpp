@@ -173,7 +173,7 @@ int main()
         {
             smatch m;
             auto ret = regex_match(s, m, tri13);
-            cout << "JNG\t";
+            cout << "JLE\t";
             for (auto pos = m.begin() + 1; pos != m.end(); ++pos)
             {
                 cout << *pos << "\t";

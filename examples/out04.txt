@@ -47,7 +47,7 @@ JGT	T5	V	B3
 
 
 ; #BLK 4
-JNG	J	I	B6 
+JLE	J	I	B6 
 ; NXT 5 6
 ; VAR I J
 ; DEF
