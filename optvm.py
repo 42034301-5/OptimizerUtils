@@ -1,6 +1,8 @@
 import re
 import json
 import argparse
+import copy
+
 
 parser = argparse.ArgumentParser(prog='optvm', prefix_chars='-', description='read the json file and run the vm',
                                  epilog="before using, check the json file")
@@ -22,11 +24,11 @@ if __name__ == "__main__":
     vm_runtime["PC"] = 0
     cnt = 1
     hist = []
-    print("="*15)
+    print("="*7+"RUNNING"+"="*7+"\n")
     while (vm_runtime["code"][vm_runtime["PC"]] != "HALT"):
         line = vm_runtime["code"][vm_runtime["PC"]]
         symbols = line.split(" ")
-        hist.append((cnt, line, vm_runtime["table"]))
+        hist.append((cnt, line, copy.deepcopy(vm_runtime["table"])))
         print("{:3d} {:3d}: ".format(cnt, vm_runtime["PC"]), line)
         vm_runtime["PC"] = vm_runtime["PC"]+1
         if "!:" in symbols:
@@ -61,8 +63,13 @@ if __name__ == "__main__":
                 break
         cnt = cnt+1
         # print(vm_runtime["table"])
-    print("{:3d} {:3d}: ".format(cnt, vm_runtime["PC"]), vm_runtime["code"][vm_runtime["PC"]])
-    print("="*15)
+    print("{:3d} {:3d}: ".format(
+        cnt, vm_runtime["PC"]), vm_runtime["code"][vm_runtime["PC"]])
+    print("="*7+"DONE"+"="*7+"\n\n")
+    print("="*7+"IN VAR"+"="*7)
+    print("".join(["{} : {}\n".format(i[0], i[1]["val"])
+          for i in hist[0][2].items() if reg.match(i[0]) == None]))
+    print("="*7+"OUT VAR"+"="*7)
     print("".join(["{} : {}\n".format(i[0], i[1]["val"])
           for i in vm_runtime["table"].items() if reg.match(i[0]) == None]))
     new_file = re.sub('(.*)\\.json$', r'\g<1>_vmout.json', args.filename[0])
