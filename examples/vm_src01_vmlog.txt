@@ -1,0 +1,35 @@
+=======RUNNING=======
+
+  1   0:  R = X % Y
+  2   1:  ? R == 0 : 7
+FALSE R == 0 ( 2 == 0 )
+  3   2:  X = Y
+  4   3:  Y = R
+  5   4:  !: 0
+GOTO 0
+  6   0:  R = X % Y
+  7   1:  ? R == 0 : 7
+FALSE R == 0 ( 1 == 0 )
+  8   2:  X = Y
+  9   3:  Y = R
+ 10   4:  !: 0
+GOTO 0
+ 11   0:  R = X % Y
+ 12   1:  ? R == 0 : 7
+TRUE R == 0 ( 0 == 0 )
+GOTO 7
+ 13   7:  HALT
+=======DONE=======
+
+
+=======IN VAR=======
+R : 0
+X : 233
+Y : 7
+
+=======OUT VAR=======
+R : 0
+X : 2
+Y : 1
+
+Saving output to: examples/vm_src01_vmout.json
