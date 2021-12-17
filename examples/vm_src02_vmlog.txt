@@ -1,0 +1,150 @@
+===============
+  1   0:  I = M - 1
+  2   1:  J = N
+  3   2:  T_1 = N
+  4   3:  V = A [ T_1 ]
+ACCESS A[9]
+  5   4:  I = I + 1
+  6   5:  T_2 = I
+  7   6:  T_3 = A [ T_2 ]
+ACCESS A[0]
+  8   7:  ? V > T_3 : 4
+FALSE V > T_3
+  9   8:  J = J - 1
+ 10   9:  T_4 = J
+ 11  10:  T_5 = A [ T_4 ]
+ACCESS A[8]
+ 12  11:  ? T_5 > V : 8
+TRUE T_5 > V
+GOTO 8
+ 13   8:  J = J - 1
+ 14   9:  T_4 = J
+ 15  10:  T_5 = A [ T_4 ]
+ACCESS A[7]
+ 16  11:  ? T_5 > V : 8
+TRUE T_5 > V
+GOTO 8
+ 17   8:  J = J - 1
+ 18   9:  T_4 = J
+ 19  10:  T_5 = A [ T_4 ]
+ACCESS A[6]
+ 20  11:  ? T_5 > V : 8
+FALSE T_5 > V
+ 21  12:  ? J <= I : 22
+FALSE J <= I
+ 22  13:  T_6 = I
+ 23  14:  X = A [ T_6 ]
+ACCESS A[0]
+ 24  15:  T_7 = I
+ 25  16:  T_8 = J
+ 26  17:  T_9 = A [ T_8 ]
+ACCESS A[6]
+ 27  18:  A [ T_7 ] = T_9
+ASSIGN A[0]
+ 28  19:  T_10 = J
+ 29  20:  A [ T_10 ] = X
+ASSIGN A[6]
+ 30  21:  !: 4
+GOTO 4
+ 31   4:  I = I + 1
+ 32   5:  T_2 = I
+ 33   6:  T_3 = A [ T_2 ]
+ACCESS A[1]
+ 34   7:  ? V > T_3 : 4
+TRUE V > T_3
+GOTO 4
+ 35   4:  I = I + 1
+ 36   5:  T_2 = I
+ 37   6:  T_3 = A [ T_2 ]
+ACCESS A[2]
+ 38   7:  ? V > T_3 : 4
+FALSE V > T_3
+ 39   8:  J = J - 1
+ 40   9:  T_4 = J
+ 41  10:  T_5 = A [ T_4 ]
+ACCESS A[5]
+ 42  11:  ? T_5 > V : 8
+TRUE T_5 > V
+GOTO 8
+ 43   8:  J = J - 1
+ 44   9:  T_4 = J
+ 45  10:  T_5 = A [ T_4 ]
+ACCESS A[4]
+ 46  11:  ? T_5 > V : 8
+FALSE T_5 > V
+ 47  12:  ? J <= I : 22
+FALSE J <= I
+ 48  13:  T_6 = I
+ 49  14:  X = A [ T_6 ]
+ACCESS A[2]
+ 50  15:  T_7 = I
+ 51  16:  T_8 = J
+ 52  17:  T_9 = A [ T_8 ]
+ACCESS A[4]
+ 53  18:  A [ T_7 ] = T_9
+ASSIGN A[2]
+ 54  19:  T_10 = J
+ 55  20:  A [ T_10 ] = X
+ASSIGN A[4]
+ 56  21:  !: 4
+GOTO 4
+ 57   4:  I = I + 1
+ 58   5:  T_2 = I
+ 59   6:  T_3 = A [ T_2 ]
+ACCESS A[3]
+ 60   7:  ? V > T_3 : 4
+TRUE V > T_3
+GOTO 4
+ 61   4:  I = I + 1
+ 62   5:  T_2 = I
+ 63   6:  T_3 = A [ T_2 ]
+ACCESS A[4]
+ 64   7:  ? V > T_3 : 4
+FALSE V > T_3
+ 65   8:  J = J - 1
+ 66   9:  T_4 = J
+ 67  10:  T_5 = A [ T_4 ]
+ACCESS A[3]
+ 68  11:  ? T_5 > V : 8
+FALSE T_5 > V
+ 69  12:  ? J <= I : 22
+TRUE J <= I
+GOTO 22
+ 70  22:  T_11 = I
+ 71  23:  X = A [ T_11 ]
+ACCESS A[4]
+ 72  24:  T_12 = J
+ 73  25:  T_13 = N
+ 74  26:  T_14 = A [ T_13 ]
+ACCESS A[9]
+ 75  27:  A [ T_12 ] = T_14
+ASSIGN A[3]
+ 76  28:  T_15 = N
+ 77  29:  A [ T_15 ] = X
+ASSIGN A[9]
+78  -  HALT
+===============
+I : 4
+M : 0
+J : 3
+N : 9
+T_1 : 9
+V : 5
+A : [3, 1, 4, 5, 7, 6, 9, 9, 8, 7]
+T_2 : 4
+T_3 : 7
+T_4 : 3
+T_5 : 2
+T_6 : 2
+X : 7
+T_7 : 2
+T_8 : 4
+T_9 : 4
+T_10 : 4
+T_11 : 4
+T_12 : 3
+T_13 : 9
+T_14 : 5
+T_15 : 9
+
+Saving output to: examples/vm_src02_vmout.json
