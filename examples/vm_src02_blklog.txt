@@ -1,25 +1,35 @@
 #BLOCK   0
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['A', 'I', 'V', 'J', 'N']
   0 : I = M - 1
   1 : J = N
   2 : T_1 = N
   3 : V = A [ T_1 ]
 
 #BLOCK   1
+#NEXT BLOCK (2, 1)
+#ACTIVE VAR ['A', 'I', 'V', 'J', 'N']
   4 : I = I + 1
   5 : T_2 = I
   6 : T_3 = A [ T_2 ]
   7 : ? V > T_3 : 4
 
 #BLOCK   2
+#NEXT BLOCK (3, 2)
+#ACTIVE VAR ['A', 'I', 'V', 'J', 'N']
   8 : J = J - 1
   9 : T_4 = J
  10 : T_5 = A [ T_4 ]
  11 : ? T_5 > V : 8
 
 #BLOCK   3
+#NEXT BLOCK (4, 5)
+#ACTIVE VAR ['A', 'I', 'V', 'J', 'N']
  12 : ? J <= I : 22
 
 #BLOCK   4
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['A', 'I', 'V', 'J', 'N']
  13 : T_6 = I
  14 : X = A [ T_6 ]
  15 : T_7 = I
@@ -31,6 +41,8 @@
  21 : !: 4
 
 #BLOCK   5
+#NEXT BLOCK (None, None)
+#ACTIVE VAR []
  22 : T_11 = I
  23 : X = A [ T_11 ]
  24 : T_12 = J

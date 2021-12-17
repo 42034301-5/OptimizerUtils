@@ -1,6 +1,7 @@
 import re
 import json
 import argparse
+import copy
 
 parser = argparse.ArgumentParser(prog='split', prefix_chars='-', description='split optvm json to basic blocks',
                                  epilog="before using, check the input file")
@@ -30,12 +31,6 @@ if __name__ == "__main__":
     split_points = sorted(split_points)
     blocks_linenum = [(split_points[i-1],split_points[i]-1) for i in range(1,len(split_points))]
     intro_block = {i[0]:n for n,i in enumerate(blocks_linenum)}
-    # 切的基本块预览
-    for n,b in enumerate(blocks_linenum):
-        print("#BLOCK {:3d}".format(n))
-        for i in range(b[0],b[1]+1):
-            print("{:3d} : {}".format(i,code[i])) 
-        print()
     # 构建dict
     blocks = {"summary":{},"blocks":{}}
     blocks["summary"] = {"total_blocks":len(blocks_linenum)}
@@ -114,6 +109,19 @@ if __name__ == "__main__":
             blocks["blocks"][n]["out"] = outset
             if (inset!=inset_ori):
                 flag = True
+    for n,b in blocks["blocks"].items():
+        blocks["blocks"][n]["in"] = list(blocks["blocks"][n]["in"])
+        blocks["blocks"][n]["out"] = list(blocks["blocks"][n]["out"])
+        blocks["blocks"][n]["defd"] = list(blocks["blocks"][n]["defd"])
+        blocks["blocks"][n]["used"] = list(blocks["blocks"][n]["used"])
+    # 切的基本块预览
+    for n,b in blocks["blocks"].items():
+        print("#BLOCK {:3d}".format(int(n)))
+        print("#NEXT BLOCK {}".format(str(b["next"])))
+        print("#ACTIVE VAR {}".format(b["out"]))
+        for i in range(b["line_num"][0],b["line_num"][1]+1):
+            print("{:3d} : {}".format(i,code[i])) 
+        print()
     # 写json
     new_file = re.sub('(.*)\\.json$', r'\g<1>_blk.json', args.filename[0])
     print("Saving output to:",new_file)
