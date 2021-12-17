@@ -36,11 +36,11 @@ if __name__ == "__main__":
             vm_runtime["PC"] = vm_runtime["table"][symbols[1]]["val"]
         elif "?" in symbols:
             if cond_f[symbols[2]](vm_runtime["table"][symbols[1]]["val"], vm_runtime["table"][symbols[3]]["val"]):
-                print("TRUE", symbols[1], symbols[2], symbols[3])
+                print("TRUE {} {} {} ( {} {} {} )".format(symbols[1], symbols[2], symbols[3], vm_runtime["table"][symbols[1]]["val"], symbols[2], vm_runtime["table"][symbols[3]]["val"]))
                 print("GOTO", vm_runtime["table"][symbols[5]]["val"])
                 vm_runtime["PC"] = vm_runtime["table"][symbols[5]]["val"]
             else:
-                print("FALSE", symbols[1], symbols[2], symbols[3])
+                print("FALSE {} {} {} ( {} {} {} )".format(symbols[1], symbols[2], symbols[3], vm_runtime["table"][symbols[1]]["val"], symbols[2], vm_runtime["table"][symbols[3]]["val"]))
         else:
             if len(symbols) == 3:
                 vm_runtime["table"][symbols[0]
