@@ -46,9 +46,74 @@ if __name__ == "__main__":
         elif code[b[1]].split(" ")[0] == "?":
             nxt[1]=intro_block[table[code[b[1]].split(" ")[5]]["val"]]
             nxt[0]=n+1
+        elif code[b[1]]=="HALT":
+            pass
         else:
             nxt[0]=n+1
         blocks["blocks"][n]={"line_num":b,"next":tuple(nxt),"code":code[b[0]:b[1]+1]}
+    # 找活跃变量
+    for n,b in blocks["blocks"].items():
+        blines = b["code"]
+        used = []
+        defd = []
+        for s in blines:
+            symbols = s.split(" ")
+            if "=" in symbols:
+                if len(symbols) == 3:
+                    if (symbols[2] not in used) and (symbols[2] not in defd):
+                        used.append(symbols[2])
+                    if (symbols[0] not in used) and (symbols[0] not in defd):
+                        defd.append(symbols[0])
+                elif symbols[3] == "]":
+                    if (symbols[2] not in used) and (symbols[2] not in defd):
+                        used.append(symbols[2])
+                    if (symbols[5] not in used) and (symbols[5] not in defd):
+                        used.append(symbols[5])
+                    if (symbols[0] not in used) and (symbols[0] not in defd):
+                        defd.append(symbols[0])
+                elif symbols[3] == "[":
+                    if (symbols[2] not in used) and (symbols[2] not in defd):
+                        used.append(symbols[2])
+                    if (symbols[4] not in used) and (symbols[4] not in defd):
+                        used.append(symbols[4])
+                    if (symbols[0] not in used) and (symbols[0] not in defd):
+                        defd.append(symbols[0])
+
+                elif symbols[3] in arith_f:
+                    if (symbols[2] not in used) and (symbols[2] not in defd):
+                        used.append(symbols[2])
+                    if (symbols[4] not in used) and (symbols[4] not in defd):
+                        used.append(symbols[4])
+                    if (symbols[0] not in used) and (symbols[0] not in defd):
+                        defd.append(symbols[0])
+            elif "?" in symbols:
+                    if (symbols[1] not in used) and (symbols[1] not in defd):
+                        used.append(symbols[1])
+                    if (symbols[3] not in used) and (symbols[3] not in defd):
+                        used.append(symbols[3])
+        used = [i for i in used if reg.match(i)==None]
+        defd = [i for i in defd if reg.match(i)==None]
+
+        blocks["blocks"][n]["defd"] = set(defd)
+        blocks["blocks"][n]["used"] = set(used)
+        blocks["blocks"][n]["in"] = set([])
+        blocks["blocks"][n]["out"] = set([])
+    flag = True
+    while flag:
+        flag = False
+        for n,b in blocks["blocks"].items():
+            inset = copy.deepcopy(blocks["blocks"][n]["in"])
+            inset_ori = copy.deepcopy(blocks["blocks"][n]["in"])
+            outset = copy.deepcopy(blocks["blocks"][n]["out"])
+            if b["next"][0]!=None:
+                outset = outset | blocks["blocks"][b["next"][0]]["in"]
+            if b["next"][1]!=None:
+                outset = outset | blocks["blocks"][b["next"][1]]["in"]
+            inset = blocks["blocks"][n]["used"] | (outset - blocks["blocks"][n]["defd"])
+            blocks["blocks"][n]["in"] = inset
+            blocks["blocks"][n]["out"] = outset
+            if (inset!=inset_ori):
+                flag = True
     # 写json
     new_file = re.sub('(.*)\\.json$', r'\g<1>_blk.json', args.filename[0])
     print("Saving output to:",new_file)

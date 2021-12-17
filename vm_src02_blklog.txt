@@ -1,0 +1,44 @@
+#BLOCK   0
+  0 : I = M - 1
+  1 : J = N
+  2 : T_1 = N
+  3 : V = A [ T_1 ]
+
+#BLOCK   1
+  4 : I = I + 1
+  5 : T_2 = I
+  6 : T_3 = A [ T_2 ]
+  7 : ? V > T_3 : 4
+
+#BLOCK   2
+  8 : J = J - 1
+  9 : T_4 = J
+ 10 : T_5 = A [ T_4 ]
+ 11 : ? T_5 > V : 8
+
+#BLOCK   3
+ 12 : ? J <= I : 22
+
+#BLOCK   4
+ 13 : T_6 = I
+ 14 : X = A [ T_6 ]
+ 15 : T_7 = I
+ 16 : T_8 = J
+ 17 : T_9 = A [ T_8 ]
+ 18 : A [ T_7 ] = T_9
+ 19 : T_10 = J
+ 20 : A [ T_10 ] = X
+ 21 : !: 4
+
+#BLOCK   5
+ 22 : T_11 = I
+ 23 : X = A [ T_11 ]
+ 24 : T_12 = J
+ 25 : T_13 = N
+ 26 : T_14 = A [ T_13 ]
+ 27 : A [ T_12 ] = T_14
+ 28 : T_15 = N
+ 29 : A [ T_15 ] = X
+ 30 : HALT
+
+Saving output to: examples/vm_src02_blk.json
