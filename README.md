@@ -61,6 +61,50 @@ Saving output to: examples/vm_src01_vmout.json
 
 ```
 
+# split.py
+
+基本块切分。运行```python split.py examples/vm_src02.json > examples/vm_src02_blklog.txt```，生成```vm_src02_blk.json```和```vm_src02_blklog.txt```。
+
+```vm_src02_blk.json```输出文件记录了基本块的信息。而```vm_src02_blklog.txt```则易于（？）人类阅读。
+
+一个基本块的json实例如下：
+```
+
+  "summary": {
+    "total_blocks": 6
+  },
+  "blocks": {
+    "0": {
+      "line_num": [
+        0,
+        3
+      ],
+      "next": [
+        1,
+        null
+      ],
+      "code": [
+        "I = M - 1",
+        "J = N",
+        "T_1 = N",
+        "V = A [ T_1 ]"
+      ]
+    },
+    "1": {
+      "line_num": [
+        4,
+        7
+      ],
+      "next": [
+        2,
+        1
+      ],
+      "code": [
+        "I = I + 1",
+        "T_2 = I",
+```
+其中，```"line_num"```指示基本块在原文件中开始和结束的行号，```"next"```的第一个元素指示下一个基本块（或不跳转时执行的基本块），第二个元素指示跳转后的下一个基本块。
+
 # 变量
 
 ## 支持的变量类型
