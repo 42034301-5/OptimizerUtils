@@ -61,7 +61,7 @@ if __name__ == "__main__":
                 break
         cnt = cnt+1
         # print(vm_runtime["table"])
-    print(cnt, " - ", vm_runtime["code"][vm_runtime["PC"]])
+    print("{:3d} {:3d}: ".format(cnt, vm_runtime["PC"]), vm_runtime["code"][vm_runtime["PC"]])
     print("="*15)
     print("".join(["{} : {}\n".format(i[0], i[1]["val"])
           for i in vm_runtime["table"].items() if reg.match(i[0]) == None]))
