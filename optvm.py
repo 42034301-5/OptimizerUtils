@@ -44,9 +44,13 @@ if __name__ == "__main__":
                 vm_runtime["table"][symbols[0]
                                     ]["val"] = vm_runtime["table"][symbols[2]]["val"]
             elif symbols[3] == "]":
+                print("ASSIGN {}[{}]".format(symbols[0],
+                      vm_runtime["table"][symbols[2]]["val"]))
                 vm_runtime["table"][symbols[0]]["val"][vm_runtime["table"]
                                                        [symbols[2]]["val"]] = vm_runtime["table"][symbols[5]]["val"]
             elif symbols[3] == "[":
+                print("ACCESS {}[{}]".format(symbols[2],
+                      vm_runtime["table"][symbols[4]]["val"]))
                 vm_runtime["table"][symbols[0]]["val"] = vm_runtime["table"][symbols[2]
                                                                              ]["val"][vm_runtime["table"][symbols[4]]["val"]]
             elif symbols[3] in arith_f:
