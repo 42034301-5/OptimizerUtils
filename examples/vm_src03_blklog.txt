@@ -1,0 +1,31 @@
+#BLOCK   0
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['U3', 'U2', 'J', 'I']
+  0 : I = M - 1
+  1 : J = N
+  2 : A = U1
+
+#BLOCK   1
+#NEXT BLOCK (2, 3)
+#ACTIVE VAR ['U3', 'J', 'U2']
+  3 : I = I + 1
+  4 : J = J - 1
+  5 : ? J < I : 7
+
+#BLOCK   2
+#NEXT BLOCK (3, None)
+#ACTIVE VAR ['U3', 'J', 'U2']
+  6 : A = U2
+
+#BLOCK   3
+#NEXT BLOCK (4, 1)
+#ACTIVE VAR ['U3', 'U2', 'J', 'I']
+  7 : I = U3
+  8 : ? J > I : 3
+
+#BLOCK   4
+#NEXT BLOCK (None, None)
+#ACTIVE VAR []
+  9 : HALT
+
+Saving output to: examples/vm_src03_blk.json
