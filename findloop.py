@@ -54,28 +54,12 @@ if __name__ == "__main__":
         if len(b["pre"])==0 and n!='0':
             blocks[n]["dom"] = set()
     # 寻找回边
-    stack = ['0']
-    visited = {str(i):False for i in range(vm_blk["summary"]["total_blocks"])}
-    dfn = {str(i):vm_blk["summary"]["total_blocks"]*7 for i in range(vm_blk["summary"]["total_blocks"])}
-    low = {str(i):vm_blk["summary"]["total_blocks"]*7 for i in range(vm_blk["summary"]["total_blocks"])}
-    parent = {str(i):None for i in range(vm_blk["summary"]["total_blocks"])}
-    cnt = 0
     back_edge = []
-    while len(stack)>0:
-        tmp = stack[-1]
-        visited[tmp] = True
-        stack.pop()
-        # print(tmp)
-        for i in blocks[tmp]["next"]:
-            if (i!=None):
-                if not visited[str(i)]:
-                    stack.append(str(i))
-                    dfn[str(i)] = cnt
-                    cnt+=1
-                    parent[str(i)] = tmp
-                else:
-                    # print(tmp,dfn[tmp],"->",str(i),dfn[str(i)])
-                    back_edge.append((tmp,str(i)))
+    for n,b in blocks.items():
+        for i in b["dom"]:
+            if int(i) in b["next"]:
+                back_edge.append((n,i))
+    back_edge = list(set(back_edge))
     # 寻找回边对应的自然循环
     loops = []
     for le in back_edge:
@@ -90,11 +74,20 @@ if __name__ == "__main__":
                     stack.append(p)
         loop = [i for i in list(loop) if len(blocks[i]["pre"])>0]
         # print(le,sorted(loop))
-        loops.append(loop)
+        loops.append(sorted(loop))
+    # 找只有一个基本块的循环
+    for n,b in blocks.items():
+        if int(n) in b["next"]:
+            loops.append([n])
     loops = sorted(loops,key = lambda x:len(x))
-    print(loops)
+    # loops = list(set(loops))
+    loops_res = []
+    for l in loops:
+        if l not in loops_res:
+            loops_res.append(l)
+    print(loops_res)
 
     new_file = re.sub('(.*)\\.json$', r'\g<1>_loops.json', args.filename[0])
     print("Saving output to:",new_file)
     with open(new_file,"w") as fp:
-        json.dump(loops,fp,indent=2)
+        json.dump(loops_res,fp,indent=2)
