@@ -19,7 +19,6 @@ if __name__ == "__main__":
     # 读文件
     args = parser.parse_args()
     filename = args.filename[0]
-    vm_src = {}
     with open(filename, "r") as fp:
         vm_blk = json.load(fp)
     blocks = vm_blk["blocks"]
@@ -86,8 +85,12 @@ if __name__ == "__main__":
         if l not in loops_res:
             loops_res.append(l)
     print(loops_res)
-
+    for n,b in blocks.items():
+        blocks[n]["dom"] = list(blocks[n]["dom"])
+        blocks[n]["pre"] = list(blocks[n]["pre"])
+    vm_blk["blocks"] = blocks
+    vm_blk["loops"] = loops_res
     new_file = re.sub('(.*)\\.json$', r'\g<1>_loops.json', args.filename[0])
     print("Saving output to:",new_file)
     with open(new_file,"w") as fp:
-        json.dump(loops_res,fp,indent=2)
+        json.dump(vm_blk,fp,indent=2)
