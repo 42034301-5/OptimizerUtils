@@ -1,0 +1,89 @@
+#BLOCK   0
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['SR', 'SL', 'A', 'TOP']
+  0 : SL [ 0 ] = 0
+  1 : N = N - 1
+  2 : SR [ 0 ] = N
+  3 : TOP = 0
+
+#BLOCK   1
+#NEXT BLOCK (2, 9)
+#ACTIVE VAR ['A', 'SL', 'SR', 'TOP']
+  4 : ? TOP < 0 : 47
+
+#BLOCK   2
+#NEXT BLOCK (3, 1)
+#ACTIVE VAR ['M', 'SR', 'N', 'SL', 'A', 'TOP']
+  5 : M = SL [ TOP ]
+  6 : N = SR [ TOP ]
+  7 : TOP = TOP - 1
+  8 : ? N <= M : 4
+
+#BLOCK   3
+#NEXT BLOCK (4, None)
+#ACTIVE VAR ['M', 'J', 'I', 'V', 'N', 'A', 'TOP']
+  9 : I = M - 1
+ 10 : J = N
+ 11 : T_1 = N
+ 12 : V = A [ T_1 ]
+
+#BLOCK   4
+#NEXT BLOCK (5, 4)
+#ACTIVE VAR ['M', 'I', 'V', 'J', 'N', 'A', 'TOP']
+ 13 : I = I + 1
+ 14 : T_2 = I
+ 15 : T_3 = A [ T_2 ]
+ 16 : ? V > T_3 : 13
+
+#BLOCK   5
+#NEXT BLOCK (6, 5)
+#ACTIVE VAR ['M', 'I', 'V', 'J', 'N', 'A', 'TOP']
+ 17 : J = J - 1
+ 18 : T_4 = J
+ 19 : T_5 = A [ T_4 ]
+ 20 : ? T_5 > V : 17
+
+#BLOCK   6
+#NEXT BLOCK (7, 8)
+#ACTIVE VAR ['M', 'I', 'V', 'J', 'N', 'A', 'TOP']
+ 21 : ? I >= J : 31
+
+#BLOCK   7
+#NEXT BLOCK (4, None)
+#ACTIVE VAR ['M', 'J', 'I', 'V', 'N', 'A', 'TOP']
+ 22 : T_6 = I
+ 23 : X = A [ T_6 ]
+ 24 : T_7 = I
+ 25 : T_8 = J
+ 26 : T_9 = A [ T_8 ]
+ 27 : A [ T_7 ] = T_9
+ 28 : T_10 = J
+ 29 : A [ T_10 ] = X
+ 30 : !: 13
+
+#BLOCK   8
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['SR', 'SL', 'A', 'TOP']
+ 31 : T_11 = I
+ 32 : X = A [ T_11 ]
+ 33 : T_12 = I
+ 34 : T_13 = N
+ 35 : T_14 = A [ T_13 ]
+ 36 : A [ T_12 ] = T_14
+ 37 : T_15 = N
+ 38 : A [ T_15 ] = X
+ 39 : TOP = TOP + 1
+ 40 : SL [ TOP ] = M
+ 41 : SR [ TOP ] = J
+ 42 : TOP = TOP + 1
+ 43 : T_16 = I + 1
+ 44 : SL [ TOP ] = T_16
+ 45 : SR [ TOP ] = N
+ 46 : !: 4
+
+#BLOCK   9
+#NEXT BLOCK (None, None)
+#ACTIVE VAR []
+ 47 : HALT
+
+Saving output to: examples/quicksort_src_blk.json
