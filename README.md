@@ -105,6 +105,14 @@ Saving output to: examples/vm_src01_vmout.json
 ```
 其中，```"line_num"```指示基本块在原文件中开始和结束的行号，```"next"```的第一个元素指示下一个基本块（或不跳转时执行的基本块），第二个元素指示跳转后的下一个基本块。
 
+# findloop.py
+
+查找自然循环和单循环。输入为基本块json文件，用法：```python blk2tri.py examples/quicksort_src_blk.json```。
+
+# blk2tri.py
+
+将基本块json转化为三地址代码（归于尘土）。输入为基本块json文件，用法：```python blk2tri.py examples/quicksort_src_blk.json```。
+
 # 变量
 
 ## 支持的变量类型

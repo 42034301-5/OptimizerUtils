@@ -76,7 +76,7 @@ if __name__ == "__main__":
         l = li[1]
         if "!:"==l[0] or "?" == l[0]:
             l[-1] = str(line_num_map[int(l[-1])])
-        print("{:4d} -   {}".format(line_num_map[li[0]]," ".join(l)))
+        # print("{:4d} -   {}".format(line_num_map[li[0]]," ".join(l)))
         retlines.append(" ".join(l)+'\n')
 
     new_file = re.sub('(.*)\\.json$', r'\g<1>_codegen.txt', args.filename[0])
