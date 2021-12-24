@@ -64,6 +64,8 @@ if __name__ == "__main__":
     for le in back_edge:
         stack = [le[0]]
         loop = {le[0],le[1]}
+        if le[0]==le[1]:
+            continue
         while len(stack)>0:
             m=stack[-1]
             stack.pop()
@@ -73,12 +75,12 @@ if __name__ == "__main__":
                     stack.append(p)
         loop = [i for i in list(loop) if len(blocks[i]["pre"])>0]
         # print(le,sorted(loop))
-        loops.append(sorted(loop))
+        loops.append((sorted(loop),le))
     # 找只有一个基本块的循环
     for n,b in blocks.items():
         if int(n) in b["next"]:
-            loops.append([n])
-    loops = sorted(loops,key = lambda x:len(x))
+            loops.append(([n],(n,n)))
+    loops = sorted(loops,key = lambda x:len(x[0]))
     # loops = list(set(loops))
     loops_res = []
     for l in loops:
