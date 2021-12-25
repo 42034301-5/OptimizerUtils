@@ -113,6 +113,18 @@ Saving output to: examples/vm_src01_vmout.json
 
 将基本块json转化为三地址代码（归于尘土）。输入为基本块json文件，用法：```python blk2tri.py examples/quicksort_src_blk.json```。
 
+一个生成的代码的例子：
+
+```
+R = X % Y
+? R == 0 : 5
+X = Y
+Y = R
+!: 0
+HALT
+
+```
+
 # 变量
 
 ## 支持的变量类型
