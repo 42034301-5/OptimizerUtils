@@ -1,0 +1,19 @@
+#BLOCK   0
+#NEXT BLOCK (1, 2)
+#ACTIVE VAR ['Y', 'R']
+  0 : R = X % Y
+  1 : ? R == 0 : 5
+
+#BLOCK   1
+#NEXT BLOCK (0, None)
+#ACTIVE VAR ['Y', 'X']
+  2 : X = Y
+  3 : Y = R
+  4 : !: 0
+
+#BLOCK   2
+#NEXT BLOCK (None, None)
+#ACTIVE VAR []
+  5 : HALT
+
+Saving output to: examples/gcd/gcd_blk.json

@@ -1,0 +1,27 @@
+#BLOCK   0
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['I', 'N', 'S']
+  0 : S = 0
+  1 : I = 1
+  2 : N = 100
+
+#BLOCK   1
+#NEXT BLOCK (2, 3)
+#ACTIVE VAR ['S', 'I', 'N']
+  3 : ? I > N : 9
+
+#BLOCK   2
+#NEXT BLOCK (1, None)
+#ACTIVE VAR ['I', 'N', 'S']
+  4 : J = I * 2
+  5 : J = J - 1
+  6 : S = S + J
+  7 : I = I + 2
+  8 : !: 3
+
+#BLOCK   3
+#NEXT BLOCK (None, None)
+#ACTIVE VAR []
+  9 : HALT
+
+Saving output to: examples/sum_100_blk.json
