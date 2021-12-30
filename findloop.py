@@ -31,18 +31,18 @@ if __name__ == "__main__":
                 blocks[i]["pre"] = blocks[i]["pre"] | {n}
     # 构建支配关系
     for n,b in blocks.items():
-        blocks[n]["dom"] = set([i for i in range(vm_blk["summary"]["total_blocks"])])
+        blocks[n]["dom"] = set(blocks.keys())
     blocks[str(0)]["dom"] = {'0'}
     flag = True
-    i = 0
     while flag:
         flag = False
-        i+=1
+        for n,b in blocks.items():
+            print(b["dom"])
         for n,b in blocks.items():
             if n!='0':
                 domset_ori = copy.deepcopy(blocks[n]["dom"])
                 domset = copy.deepcopy(blocks[n]["dom"])
-                preset = set([i for i in range(vm_blk["summary"]["total_blocks"])])
+                preset = set(blocks.keys())
                 for j in blocks[n]["pre"]:
                     preset = preset & blocks[j]["dom"]
                 domset = {n} | preset
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     back_edge = []
     for n,b in blocks.items():
         for i in b["dom"]:
-            if int(i) in b["next"]:
+            if i in b["next"]:
                 back_edge.append((n,i))
     back_edge = list(set(back_edge))
     # 寻找回边对应的自然循环
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         loops.append((sorted(loop),le))
     # 找只有一个基本块的循环
     for n,b in blocks.items():
-        if int(n) in b["next"]:
+        if n in b["next"]:
             loops.append(([n],(n,n)))
     loops = sorted(loops,key = lambda x:len(x[0]))
     # loops = list(set(loops))
