@@ -1,18 +1,18 @@
 #!/usr/bin/bash
 
-make
+python3=~/miniconda3/envs/pytorch/python.exe
 
-for i in $(ls ./examples/tri*)
-do
-    ./tri2quad < $i > ${i/tri/quad}
-done
+echo $(pwd)
+echo Processing $1
 
-for i in $(ls ./examples/quad*)
-do
-    ./split < $i > ${i/quad/out}
-done
+srcfile=$1.txt
+vmrt=$1.json
+blksrc=$1_blk.json
+blklog=$1_blklog.txt
+loopsrc=$1_blk_loops.json
 
-for i in $(ls ./examples/quad*)
-do
-    ./quad2tri < $i | grep Unknown
-done
+$python3 tri2json.py $srcfile
+$python3 split.py $vmrt > $blklog
+$python3 findloop.py $blksrc
+
+echo Done!
