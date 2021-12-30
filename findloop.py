@@ -28,10 +28,10 @@ if __name__ == "__main__":
     for n,b in blocks.items():
         for i in b["next"]:
             if i!=None:
-                blocks[str(i)]["pre"] = blocks[str(i)]["pre"] | {n}
+                blocks[i]["pre"] = blocks[i]["pre"] | {n}
     # 构建支配关系
     for n,b in blocks.items():
-        blocks[n]["dom"] = set([str(i) for i in range(vm_blk["summary"]["total_blocks"])])
+        blocks[n]["dom"] = set([i for i in range(vm_blk["summary"]["total_blocks"])])
     blocks[str(0)]["dom"] = {'0'}
     flag = True
     i = 0
@@ -42,7 +42,7 @@ if __name__ == "__main__":
             if n!='0':
                 domset_ori = copy.deepcopy(blocks[n]["dom"])
                 domset = copy.deepcopy(blocks[n]["dom"])
-                preset = set([str(i) for i in range(vm_blk["summary"]["total_blocks"])])
+                preset = set([i for i in range(vm_blk["summary"]["total_blocks"])])
                 for j in blocks[n]["pre"]:
                     preset = preset & blocks[j]["dom"]
                 domset = {n} | preset
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     loops_res = []
     for l in loops:
         if l not in loops_res:
-            loops_res.append(l)
+            loops_res.append({"loop_blks":l[0],"back_edge":l[1]})
     print(loops_res)
     for n,b in blocks.items():
         blocks[n]["dom"] = list(blocks[n]["dom"])

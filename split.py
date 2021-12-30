@@ -37,14 +37,14 @@ if __name__ == "__main__":
     for n,b in enumerate(blocks_linenum):
         nxt = [None,None]
         if code[b[1]].split(" ")[0] == "!:":
-            nxt[0]=intro_block[table[code[b[1]].split(" ")[1]]["val"]]
+            nxt[0]=str(intro_block[table[code[b[1]].split(" ")[1]]["val"]])
         elif code[b[1]].split(" ")[0] == "?":
-            nxt[1]=intro_block[table[code[b[1]].split(" ")[5]]["val"]]
-            nxt[0]=n+1
+            nxt[1]=str(intro_block[table[code[b[1]].split(" ")[5]]["val"]])
+            nxt[0]=str(n+1)
         elif code[b[1]]=="HALT":
             pass
         else:
-            nxt[0]=n+1
+            nxt[0]=str(n+1)
         blocks["blocks"][n]={"line_num":b,"next":tuple(nxt),"code":code[b[0]:b[1]+1]}
     # 找活跃变量
     for n,b in blocks["blocks"].items():
@@ -101,9 +101,9 @@ if __name__ == "__main__":
             inset_ori = copy.deepcopy(blocks["blocks"][n]["in"])
             outset = copy.deepcopy(blocks["blocks"][n]["out"])
             if b["next"][0]!=None:
-                outset = outset | blocks["blocks"][b["next"][0]]["in"]
+                outset = outset | blocks["blocks"][int(b["next"][0])]["in"]
             if b["next"][1]!=None:
-                outset = outset | blocks["blocks"][b["next"][1]]["in"]
+                outset = outset | blocks["blocks"][int(b["next"][1])]["in"]
             inset = blocks["blocks"][n]["used"] | (outset - blocks["blocks"][n]["defd"])
             blocks["blocks"][n]["in"] = inset
             blocks["blocks"][n]["out"] = outset
