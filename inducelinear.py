@@ -191,6 +191,7 @@ with open(filename, "r") as fp:
 #   ]
 # }
 # '''
+# program = json.loads(testjson)
 
 # %%
 
@@ -247,7 +248,7 @@ def appendcode(ope, blk):
 def updatecode(ope, start, end, blk):
     upcodes = blk['code'][:start]
     downcodes = blk['code'][end+1:]
-    blk['code'] = upcodes+[ope]+downcodes
+    blk['code'] = upcodes+ope+downcodes
 
 
 # %%
@@ -264,7 +265,7 @@ for loop in program['loops']:
             break
     loop['head'] = head
 
-print(program['loops'])
+# print(program['loops'])
 
 # %%
 # 解析代码
@@ -352,10 +353,9 @@ def simpleplusminus(code):
 def assigned(var, code):
     return var == simpleassign(code)
 
-
-print(simpleassign('T = T + 1'))
-print(simpleselfplusminus('T = T + 2'))
-print(simpleselfmultiply('T = T * 2'))
+#print(simpleassign('T = T + 1'))
+#print(simpleselfplusminus('T = T + 2'))
+#print(simpleselfmultiply('T = T * 2'))
 
 
 # %%
@@ -544,7 +544,21 @@ def dealwithinduce(blk, newblk):
         '-': '+'
     }
 
+    basicvar = [var[0] for var in basic]
+    # print(basicvar,"basicvar")
+    # print(induces,"induces")
+
     for induce in induces:
+        if(len(induce) != 2):
+            continue
+        if(induce[0][2] != '*'
+            or (induce[0][1] not in basicvar)
+            or (not induce[0][3].isnumeric())
+            or (induce[1][2] != '+' and induce[1][2] != '-')
+            or (induce[1][1] != induce[1][0])
+                or (not induce[1][3].isnumeric())):
+            continue
+
         inducevar = ""
         basicvar = ""
         k, b, c, back = 1, 0, 0, False
@@ -553,6 +567,7 @@ def dealwithinduce(blk, newblk):
         last = -1
         basicfirst = -1
         basiclast = -1
+
         for (var, left, opt, right, start, end) in induce:
             inducevar = var
             first = start
@@ -578,7 +593,7 @@ def dealwithinduce(blk, newblk):
                         initoperation = opt
                         b = int(right)
 
-        print(k, b, c, operation)
+        # print(k,b,c,operation)
         if(back):
             init1 = inducevar+" = "+basicvar+" * "+str(k)
             init2 = inducevar+" = "+inducevar+" "+initoperation+" "+str(b)
@@ -590,9 +605,10 @@ def dealwithinduce(blk, newblk):
 
             appendcode(init1, newblk)
             appendcode(init2, newblk)
-            appendcode(init3, newblk)
+            #appendcode(init3, newblk)
 
-            updatecode(step, first, last, blk)
+            # step=init3+"\n"+step
+            updatecode([init3, step], first, last, blk)
 
         else:
             tempinit = 'T_'+str(random.randint(100, 200))
@@ -609,10 +625,15 @@ def dealwithinduce(blk, newblk):
             appendcode(init0, newblk)
             appendcode(init1, newblk)
             appendcode(init2, newblk)
-            appendcode(init3, newblk)
+            #appendcode(init3, newblk)
 
-            updatecode(step, first, last, blk)
+            # step=init3+"\n"+step
 
+            updatecode([init3, step], first, last, blk)
+
+
+# %%
+"9".isnumeric()
 
 # %%
 # 求解每一个循环的每一个基本块
