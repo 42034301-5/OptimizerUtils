@@ -34,5 +34,4 @@ TOP = S4 + 1
 SL [ TOP ] = S5
 SR [ TOP ] = N
 !: 4
-
-
+HALT
