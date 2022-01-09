@@ -139,7 +139,7 @@ class Expression:
   def change(self):
       s = ''
       s += self.result.chan()
-      s += ' ='
+      s += ' = '
       s += self.left.chan()
       if self.op != '[':
           s += ' '
@@ -183,22 +183,25 @@ def takeoff(codes, loop):
             "pre": [],
             "dom": []
         }
-    global start_code
     global start_block
-    block['line_num'].append(start_code)
-    block['line_num'].append(start_code + len(codes) - 1)
-    start_code += len(codes)
     block['next'].append(loop['loop_blks'][0])
     block['next'].append(None)
-    for i in loop['loop_blks']:
+    firstblk = loop['loop_blks'][0]
+    for i in info['blocks'][firstblk]['pre']:
+        if i not in loop['loop_blks']:
+            info['blocks'][i]['next'][info['blocks'][i]['next'].index(firstblk)] = start_block
+        block['pre'].append(i)
+
+    '''for i in loop['loop_blks']:
         for j in info['blocks'][i]['pre']:
             info['blocks'][j]['next'].remove(i)
             info['blocks'][i]['pre'].remove(j)
             block['pre'].append(j)
             info['blocks'][j]['next'].append(start_block)
-        info['blocks'][i]['pre'].append(start_block)
+        info['blocks'][i]['pre'].append(start_block)'''
     for e in codes:
         block['code'].append(e.change())
+        info['blocks'][e.getBk()]['code'].remove(e.change())
     info['blocks'][start_block] = block
     info['summary']['total_blocks'] += 1
     start_block = str(int(start_block) + 1)
