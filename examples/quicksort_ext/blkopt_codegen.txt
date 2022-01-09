@@ -1,0 +1,38 @@
+TOP = 0
+SL [ TOP ] = 0
+S0 = N - 1
+SR [ TOP ] = S0
+? TOP < 0 : 36
+M = SL [ TOP ]
+N = SR [ TOP ]
+TOP = TOP - 1
+? N <= M : 4
+I = M - 1
+J = N
+V = A [ J ]
+I = I + 1
+S0 = A [ I ]
+? V > S0 : 12
+J = J - 1
+S0 = A [ J ]
+? S0 > V : 15
+? I >= J : 24
+S1 = A [ I ]
+S3 = A [ J ]
+A [ I ] = S3
+A [ J ] = S1
+!: 12
+S1 = A [ I ]
+S3 = A [ N ]
+A [ I ] = S3
+A [ N ] = S1
+S4 = TOP + 1
+SL [ S4 ] = M
+SR [ S4 ] = J
+S5 = I + 1
+TOP = S4 + 1
+SL [ TOP ] = S5
+SR [ TOP ] = N
+!: 4
+
+
